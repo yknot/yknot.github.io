@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="{{ site.baseurl }}/css/syntax.css" type="text/css" />
-</head>
+
+  {% include head.html %}
+
+  <body>
+
+    {% include header.html %}
+
+    <!-- content start -->
+
+    <div class="page-content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </div>
+
+    <!-- content end -->
+
+    {% include footer.html %}
+
+  </body>
 
 </html>
-
-
-<div class="site">
-  {{ content }}
-</div>
