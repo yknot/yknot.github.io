@@ -7,8 +7,6 @@ tags:
 
 ---
 
-Motivation
-=====
 
 With the start of my new job as a Database Engineer and becoming a professional programmer of sorts you would think that coming home and doing more programming would not be first on my list. Well it turns out the opposite is true and the new position is what motivated me to look into tons of new projects. Now what better to document the successes and inevitable struggles of these than a blog. Well now that sounds like a project in itself.
 
