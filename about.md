@@ -23,7 +23,7 @@ Feel free to follow me elsewhere [Twitter](https://twitter.com/andrewjyale), [In
 * [makevid](https://github.com/yknot/makevid) - A summer research position project at RPI. Stitching multiple camera feeds together into one video
 * [SnowUpdates](https://github.com/yknot/SnowUpdates) - A service to text users about snow conditions
 * [netflix](https://github.com/yknot/netflix) - A stab at the Netflix challenge, done for a class project
-* [rain_data_analysis](https://github.com/yknot/rain_data_analysis) - Used for RPI's Engineers Without Borders club to analyze 10 years of rain data
+* [rain data analysis](https://github.com/yknot/rain_data_analysis) - Used for RPI's Engineers Without Borders club to analyze 10 years of rain data
 * [televisionTeleporter](https://github.com/yknot/televisionTeleporter) - A continuously running media managment script
 * [peoples2048](https://github.com/yknot/peoples2048) - Putting my friends pictures on a fork of 2048
 * [SkiDataViz](https://github.com/yknot/SkiDataViz) - A look at ski areas and their different attributes
