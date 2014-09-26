@@ -1,0 +1,67 @@
+---
+title: rocStats
+layout: post
+
+---
+
+<p>While I was at Rensselaer Polytechnic Institute I was very active in the Outing Club. We all sorts of trips out each weekend. Examples include hiking, white water rafting, white kayaking, caving, cross country skiing, ice climbing, and rock climbing. As you might expect college students don&#39;t really have the money to own gear for all of these trips, so one of the perks of having a very active outing club was that we had gear for all of these activities.</p>
+
+<p>Now the combination of being a club that needs to keep track of a bunch of gear and being a technology school, means of course we had a database server keeping track of it all. I helped with the recent migration and reconstruction of this site so a year later I was curious to see how it was working. So I sent a message to the current webmaster and asked if he would be kind enough to give me a dump of our rentals table. Turns out in the last school year we had 893 rentals! Now this intrigued me. With that substantial of a sample could I pull some meaning out of what gear was being borrowed? We shall see.</p>
+
+<h1 id="preliminary-stats">Preliminary Stats</h1>
+
+<p>First step was to figure out which types of gear were being signed out. Fortunately the system we use for id-ing our gear helps with that. We use a XX-YY-00 type format where XX is a 2 letter code for the activity, YY is a 2 letter code for the type of equipment, and 00 is the 2 digit number for the individual item. For example WM-TN-01 is Winter Mountaineering, Tent, 01. Below is the split by activity.</p>
+
+<table><thead>
+	<tr>
+	  <th style="text-align: left">Activity</th>
+	  <th>Number of Rentals</th>
+	</tr>
+  </thead><tbody>
+	<tr>
+	  <td>Winter Mountaineering</td>
+	  <td>356</td>
+	</tr>
+	<tr>
+	  <td>Kayaking</td>
+	  <td>198</td>
+	</tr>
+	<tr>
+	  <td>Canoeing</td>
+	  <td>122</td>
+	</tr>
+	<tr>
+	  <td>Ice Climbing</td>
+	  <td>57</td>
+	</tr>
+	<tr>
+	  <td>Caving</td>
+	  <td>56</td>
+	</tr>
+	<tr>
+	  <td>Rock Climbing</td>
+	  <td>46</td>
+	</tr>
+	<tr>
+	  <td>Cross Country Skiing</td>
+	  <td>28</td>
+	</tr>
+	<tr>
+	  <td>Mountain Biking</td>
+	  <td>19</td>
+	</tr>
+	<tr>
+	  <td>Photography</td>
+	  <td>5</td>
+	</tr>
+	<tr>
+	  <td>First Aid</td>
+	  <td>4</td>
+	</tr>
+	<tr>
+	  <td>Rafting</td>
+	  <td>2</td>
+	</tr>
+</tbody></table>
+
+<p>This in some respects isn&#39;t surprising. Winter Mountaineering as an activity includes tents, sleeping bags, flashlights and most general camping equipment. This means it should have the most rentals for 2 reasons, you need these items to do a lot of other activities and we have a fall outing club wide camping trip every fall that is our single most attended event.</p>
