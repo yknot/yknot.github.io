@@ -12,7 +12,7 @@ When I'm not working I enjoy coding for fun through working on projects such as 
 I also enjoy photography and am making (or already have) a dedicated photos section to this site to show off display some of my favorites. I use a Nikon D3100 to shoot all of my stills them and edit them in Adobe Lightroom. I also use a Contour Camera to shoot when I'm doing more active things such as [skiing](https://www.youtube.com/watch?v=u0YpsklfiHo&list=UUusFf2MvO4jJK2zv7I3Ti0A). 
 
 
-I'm also an outdoor enthusiast and love to hike, ski and play ultimate, as you can probably tell from some of my photos. As part of my hiking passion I am almost a [46er](http://en.wikipedia.org/wiki/Adirondack_Forty-Sixers) and have a goal of hiking the highest peak in all [50 states](http://www.peakbagger.com/list.aspx?lid=12003&cid=5354).
+I'm also an outdoor enthusiast and love to hike, ski and play ultimate, as you can probably tell from some of my photos. As part of my hiking passion I am almost a [46er](http://www.peakbagger.com/list.aspx?lid=5120&cid=5354) and have a goal of hiking the highest peak in all [50 states](http://www.peakbagger.com/list.aspx?lid=12003&cid=5354).
 
 Feel free to follow me elsewhere [Twitter](https://twitter.com/andrewjyale), [Instagram](http://instagram.com/andrewjyale), [Github](https://github.com/yknot) or [email me](mailto:a.yale9@gmail.com).
 
