@@ -14,7 +14,7 @@ I also enjoy photography and am making (or already have) a dedicated photos sect
 
 I'm also an outdoor enthusiast and love to hike, ski and play ultimate, as you can probably tell from some of my photos. As part of my hiking passion I am almost a [46er](http://en.wikipedia.org/wiki/Adirondack_Forty-Sixers) and have a goal of hiking the highest peak in all [50 states](http://www.peakbagger.com/list.aspx?lid=12003&cid=5354).
 
-Feel free to follow me elsewhere [Twitter](https://twitter.com/andrewjyale), [Instagram](http://instagram.com/andrewjyale), [Github](https://github.com/yknot) or [email me](a.yale9@gmail.com).
+Feel free to follow me elsewhere [Twitter](https://twitter.com/andrewjyale), [Instagram](http://instagram.com/andrewjyale), [Github](https://github.com/yknot) or [email me](mailto:a.yale9@gmail.com).
 
 
  Projects
