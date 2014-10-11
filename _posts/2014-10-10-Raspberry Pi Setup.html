@@ -48,12 +48,12 @@ iface wlan0 inet dhcp
 <p>Next I wanted to make sure that my pi would be using the same ip address whenever I restarted/moved it. This was easy too, but means going back to the interfaces file. Before we do that we will need to grab some info from your pi. First do an <code>ifconfig</code> to get an output like this: (It will look slightly different with a wired connection)</p>
 
 
-<img src="../../../assets/article_images/10/10/ifconfig.png" alt="ifconfig output">
+<img src="../../../assets/article_images/10/10/ifconfig.PNG" alt="ifconfig output">
 
 <p>From this output we want to grab your ip address "192.168.1.77", broadcast "192.168.1.255", and mask "255.255.255.0" highlighted above. Those are just my values and you can change the ip address to be what you want your static ip to be. Then run <code>netstat -nr</code> to get the rest of the values</p>
 
 
-<img src="../../../assets/article_images/10/10/netstat.png" alt="netstat output">
+<img src="../../../assets/article_images/10/10/netstat.PNG" alt="netstat output">
 
 <p>from this grab the network or destination "192.168.1.0" and the gateway "192.168.1.1" highlighted above. Now we are ready to edit the interfaces file again using nano. This time the file should look like this: (wlan0 if using wifi eth0 if using wired)</p>
 
