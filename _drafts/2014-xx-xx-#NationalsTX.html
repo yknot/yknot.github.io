@@ -1,0 +1,40 @@
+---
+title: #NationalsTX
+layout: post
+tags: 
+      - twitter
+      - data analysis
+      - ultimate
+
+---
+
+<p></p>
+
+<h1></h1>
+
+
+
+{% highlight bash %}
+{% raw %}
+  sudo nano /etc/network/interfaces
+{% endraw %}
+{% endhighlight %}
+
+{% highlight bash %}
+{% raw %}
+auto lo
+
+iface lo inet loopback
+iface wlan0 inet dhcp
+
+allow-hotplug wlan0
+auto wlan0
+
+iface wlan0 inet dhcp
+  wpa-ssid "Your network name"
+  wpa-psk "Your network password"
+{% endraw %}
+{% endhighlight %}
+
+<img src="../../../assets/article_images/10/10/ifconfig.PNG" alt="ifconfig output">
+
