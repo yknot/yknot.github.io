@@ -1,0 +1,54 @@
+---
+title: Python Flask REST API
+layout: post
+tags: 
+      - Python
+      - Flask
+      - REST
+      - API
+
+---
+
+
+<p>Recently I've been using things like the PushBullet API to create my version of <code><a href="https://github.com/yknot/pushbullet-bash">pushbullet-bash</a></code>. I also got interested in the <a href="http://swapi.co/">swapi</a>, which is a nice and nerdy implementation of a RESTful API. After working with these I thought it would be useful to know how to make (at least part of) an API. I decided to use the Flask framework for python to make the API. It already comes with a bunch of built in functionality and seemed like it would be easy to pick up.</p>
+
+
+<h1>Set-Up</h1>
+<p>I am running this right now in a virtual machine on my computer. The virtual machine is running Ubuntu Server and has port forwarding set up for ssh and theoretically the Flask web server (that one still in progress). I did it this way first of all because although I run windows I prefer bash shell and I figured going through every step on the virtual machine would make it easier to redo that later if need be.</p>
+
+<h1>Flask</h1>
+<p>The first step after set up is installing Flask. Simple <code>sudo pip install flask flask-restful</code> will work. Then I followed a little bit of <a href="http://dougblack.io/words/flask-restful-101.html">this blog post</a> and a little bit of <a href="http://flask-restful.readthedocs.org/en/latest/quickstart.html">this documentation</a>. Bottom line here is my little script as a proof of concept.</p>
+
+{% highlight python %}
+{% raw %}
+
+# import flask
+from flask import Flask
+from flask.ext import restful
+
+# create app
+app = Flask(__name__)
+# create api
+api = restful.Api(app)
+
+# list all of the resorts
+class SkiResorts(restful.Resource):
+    def get(self):
+        return 'Work in progress!'
+
+# add SkiResorts resource
+api.add_resource(SkiResorts, '/SkiResorts')
+
+# run the app
+if __name__ == '__main__':
+    app.run()
+
+{% endraw %}
+{% endhighlight %}
+
+
+<p>Basically right now it will only not 404 when you put in '/SkiResorts' as a GET request. Expanding upon this I want to add connections to MySQL to actually list the SkiResorts. And then once everything is functional the final step would be creating a front end to use the API instead of just curl requests from the terminal. Oh and coming up with some useful data to be requesting.</p>
+
+
+
+
