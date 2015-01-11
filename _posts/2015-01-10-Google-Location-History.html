@@ -1,0 +1,54 @@
+---
+title: Google Location History
+layout: post
+tags: 
+      - R
+      - ggmap
+      - ggplot2
+
+---
+
+
+<p>This past year I have looked at my location history on Google probably more frequently than really makes sense (usually it just shows how I go from home to work). But I think it's really cool on a larger scale, showing where you have been during a month or a year. So I decided since the year just ended why not actually do that, look at where I went in 2014. Here's the general overview of about 96% of my travel in the past year. It was mostly in the northeast but I will talk about the other trips that didn't make it on this map later.</p>
+
+
+<img src="../../../assets/article_images/2015/01/10/Northeast.png" alt="Northeast Map" width="750" height="902">
+
+<h1>Gathering the Data</h1>
+<p>The first challenge was to get my location history. You can visit <a href="https://maps.google.com/locationhistory/b/0">this link</a> to view your location history and download the data, but only in 30 day chunks. Not the worst problem by a slight inconvenience it surprised me that Google didn't just have a "download all your data" button. After that I had 13 files (12 months + extra days for the 31 day months). They were in KML format which is great for something like Google Earth but I wanted to use R and the easiest way to read in data is a CSV. I looked into KML to CSV programs but found it was easier to write my own <a href="https://github.com/yknot/googleLocationHistory/blob/master/googleHistoryKmlToCsv.py">script</a>. This took my 13 files and pulled out the location data and put them into 1 CSV.</p>
+
+
+<h1>Plotting the data</h1>
+
+<p>I had used ggplot2 in R many times before but never really explored the ggmap add-on of sorts. It's another package that lets you annotate maps with data with ggplot2 type syntax. I used it for all the maps in this post. You only needed to provide the longitude and latitude of the center of the map and the zoom level you wanted. Then more longitude and latitude for the locations I've been. All the code for this project can be found on my <a href="https://github.com/yknot/googleLocationHistory">GitHub</a>.</p>
+
+<h1>Extra maps</h1>
+<p>I have a couple more maps besides the initial one above. First are the 3 trips I took out of the region pictured above.</p>
+
+<p>Colorado for a ski trip. Relatively unexciting, Denver to the mountains and back</p>
+
+<img src="../../../assets/article_images/2015/01/10/Colorado.png" alt="Colorado Map" width="750" height="402">
+
+<p>St. Martin for a trip with my family. I don't have international service so those are the 3 places I got WiFi airport, hotel, shop in town.</p>
+
+<img src="../../../assets/article_images/2015/01/10/StMartin.png" alt="St. Martin Map" width="750" height="561">
+
+<p>San Francisco. The most exciting by far, zoomed out includes trip to Palo Alto to the Googleplex and zoomed in shows where I went while I was in the city.</p>
+
+<img src="../../../assets/article_images/2015/01/10/SanFrancisco.png" alt="San Francisco Map" width="750" height="880">
+<img src="../../../assets/article_images/2015/01/10/SanFranciscoZoom.png" alt="San Francisco Zoomed in Map" width="750" height="436">
+
+
+<p>Finally 2 more maps of the northeast. One of New York City and where I have been since I moved there in August.</p>
+
+<img src="../../../assets/article_images/2015/01/10/NewYork.png" alt="New York City Map" width="750" height="813">
+
+
+<p>And the northeast region again but with added location dots. Blue are Ultimate Tournaments from this Summer and Fall. Yellow is a only hiking trip I took, which makes me ashamed. Green is where I went skiing which isn't very diverse since I had a season pass to Killington and took full advantage of that.</p>
+
+<img src="../../../assets/article_images/2015/01/10/Northeast-annotated.png" alt="Northeast Annotated Map" width="750" height="958">
+
+
+<h1>Parting Thoughts</h1>
+
+<p>I really enjoyed this and is definitely is something that could be expanded upon. I only did some basic work but this data could be used for so many things. I didn't bother adding any paths to these locations since it is pretty obvious where I was going in most cases but even that addition could provide insight into the different trips where I was going and how I got there. Anyways I thought this was a good starting point and definitely want to do this again next year!</p>
