@@ -1,0 +1,93 @@
+---
+title: Config Tracking
+layout: post
+tags: 
+      - Terminal
+      - Zsh
+      - config
+
+---
+
+<p>After re-installing Ubuntu on my laptop for the umteenth time and figuring out I didn't remember any of my configuration settings, I realized it might be helpful to put them all somewhere easy to reference. So I created my <a href="https://github.com/yknot/config">config</a> GitHub repository. But for future reference I also decided to add some comments here to help anyone (including myself) trying to understand what I was thinking.</p>
+
+
+<h1>Install</h1>
+
+<h3>Everywhere</h3>
+
+<p>This is a list of all the programs that I install and a short reason why. Most of these are merely better versions of what already exists out of the box. I try not to rely on too many crazy additions because it makes you too dependent on your setup.
+<table>
+  <tr>
+    <th style="text-align: left">Program</th>
+    <th style="text-align: left">Reason</th>
+  </tr>
+  <tr>
+    <td>screen</td>
+    <td>For running detached commands</td>
+  </tr>
+  <tr>
+    <td>htop</td>
+    <td>Better top</td>
+  </tr>
+  <tr>
+    <td>autojump</td>
+    <td>Much better than cd</td>
+  </tr>
+  <tr>
+    <td>ipython</td>
+    <td>Better python interpreter with magic commands</td>
+  </tr>
+  <tr>
+    <td>python-pip</td>
+    <td>Install python modules from command line</td>
+  </tr>
+  <tr>
+    <td>python-dev</td>
+    <td>Install python modules from command line</td>
+  </tr>
+  <tr>
+    <td>build-essential</td>
+    <td>For g++</td>
+  </tr>
+  <tr>
+    <td>emacs24</td>
+    <td>Text editor</td>
+  </tr>
+  <tr>
+    <td>ack-grep</td>
+    <td>Better grep</td>
+  </tr>
+  <tr>
+    <td>zsh</td>
+    <td>Slightly better than Bash</td>
+  </tr>
+  <tr>
+    <td>oh-my-zsh</td>
+    <td>Customize zsh</td>
+  </tr>
+  <tr>
+    <td>dropbox</td>
+    <td>File sharing</td>
+  </tr>
+  <tr>
+    <td>solarized theme</td>
+    <td>Better looking terminal</td>
+  </tr>
+</table></p>
+
+<h3>Ubuntu</h3>
+
+<p>All of the programs above I install no matter what OS I'm running. If I'm running the Ubuntu Desktop I also do a couple more things. I disable tap to click on the touch pad since I find that when I'm typing it doesn't disable properly. Finally I change the way alt-tab works since I don't like how it cycles through different windows of the same program before other windows.</p>
+
+<h3>Server</h3>
+
+<p>Finally if I'm using Ubuntu Server (or any other linux server) I install tmux so that I can have multiple terminal windows without multiple ssh connections.</p>
+
+<h1>Install Script</h1>
+
+<p>I also made a script that will install all of these programs and move the dotfiles to the home folder to make emacs config and zsh config work properly. It will prompt you before installing anything but I would still recommend looking at the script before you run it. To install just run: 
+<pre>
+git clone https://github.com/yknot/config.git
+cd config
+./install.sh
+</pre></p>
