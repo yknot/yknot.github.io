@@ -1,0 +1,100 @@
+---
+title: "#NationalsTX: USA Ultimate 2014 Nationals"
+layout: post
+tags: 
+      - twitter
+      - data analysis
+      - ultimate
+      - python
+
+---
+
+
+<h1>But that was in October...</h1>
+
+<p>
+	I did start this project in October, but have had various other projects and things going on so this kept getting pushed back. I had done some analysis awhile ago but never finished and never wrote it up. Well recently I started trying to give myself deadlines for my personal projects to get myself motivated to work on them. I also had some motivation because by finishing this before college nationals I can reuse the code to compare the data from club to college nationals.
+</p>
+
+<h1>Data Collection</h1>
+
+<p>
+	I used <code>t</code> (found <a href="http://sferik.github.io/t/">here</a>) which is a bash command line utility that scrapes Twitter's using it's API. With that I was able to pull two sets of data for this analysis. First was all the tweets by Ultiworld's live account during nationals weekend. Second was all tweets during nationals weekend with the hashtag #NationalsTX. After collecting these datasets I did some analysis on them.
+</p>
+
+
+<h1>Basic Statistics</h1>
+
+<p>
+  By looking at the distribution of tweets per days you can see that #NationalsTX is actually pretty consistent most days where as Ultiworld's Live account drops off as there become fewer games per day. This makes sense because the live account is only tweeting game updates and those become less frequent, where as the #Nationals becomes more popular per game because the games become higher stakes.
+</p>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Ultiworld Live</th>
+    <th>#NationalsTX</th>
+  </tr>
+  <tr>
+    <td>Total Tweets</td>
+    <td>1216</td>
+    <td>3157</td>
+  </tr>
+  <tr>
+    <td>Day 1</td>
+    <td>407</td>
+    <td>744</td>
+  </tr>
+  <tr>
+    <td>Day 2</td>
+    <td>440</td>
+    <td>872</td>
+  </tr>
+  <tr>
+    <td>Day 3</td>
+    <td>237</td>
+    <td>762</td>
+  </tr>
+  <tr>
+    <td>Day 4</td>
+    <td>132</td>
+    <td>779</td>
+  </tr>
+  <tr>
+    <td>Unique Screen Names</td>
+    <td>1</td>
+    <td>964</td>
+  </tr>
+</table>
+
+<h1>Charts</h1>
+
+<p>
+	The first plot I made is of the tweets per hour by source. This shows how Ultiworld's coverage is pretty uniform throughout the day rise and falling during game times, but the general nationals tweets are more volatile and are more likely to line up with more exciting games and be later in the day when more results are being posted.
+</p>
+
+<img src="../../../assets/article_images/2015/04/23/ByHour.png" alt="Tweets Per Hour" width="750">
+
+<p>
+	The second plot I made is of the number of tweets per 20 minutes, by day. With this plot you can actually see where certain games happen. I decided to match up big events and spikes in the graph and you can see by where I put annotations on the graph they all line up to a major game. For instance the biggest spike in tweets for both data sets was, unsurprisingly, when GOAT beat Revolver.
+</p>
+
+<img src="../../../assets/article_images/2015/04/23/ByTwentyMod.png" alt="Tweets Per Twenty Minutes By Day" width="750">
+
+<p>
+	Also you can see how in pool play and the first rounds of the bracket Ultiworld Live has more tweets due to sheer amount of games. But as there become less games and they are closer to the championship, #NationalsTX becomes more prominent as more people watch the games.
+</p>
+
+<h1>Conclusion</h1>
+
+<p>
+	Now analysis may be a strong word to use about what I did for this post, but to be honest that had to do with how long ago it was. I plan to take the scripts from this analysis and apply it to tweets from this years college nationals and see if I can do a better, and more timely, analysis. Hopefully this was still interesting though, because I thought it was cool that you could see where big upsets and games occur just by looking at the data.
+</p>
+
+
+<h1>Markov Bot</h1>
+
+<p>
+	One task I didn't finish for this project, because I think it would be better left to it's own post, is a Markov Bot. This would take all the tweets and slice them up to be able to create random sentences or tweets. I still plan to make this and will go more in depth when I do, but an example of this is <a href="http://fivethirtyeight.com/datalab/how-i-replaced-my-colleagues-with-a-mindless-twitter-bot/">FiveThirtyEight's Markov Bot</a> that uses the text from their articles.
+</p>
+
