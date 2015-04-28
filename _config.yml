@@ -41,9 +41,9 @@ social:
     share_title:
     share_link:
 
-#  - icon:	google-plus
-#    url:	https://google.com/???
-#    desc:	Add me on google+
-#    share_url:
-#    share_title:
-#    share_link:
+  - icon: flickr
+    url: https://www.flickr.com/photos/andrewjyale/
+    desc: Check out my photos
+    share_url:
+    share_title:
+    share_link:
