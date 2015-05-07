@@ -1,0 +1,38 @@
+---
+title: Rasberry Pi ReSetup
+layout: post
+tags: 
+      - usernames
+      - rasperrry pi
+      - raspbian
+
+---
+
+
+<p>Decided to reimage my raspberry pi. Since that really means just putting a new image on an sd card it wasn't hard. But I did have make some tweaks in terms of username, keyboard layout, and time zone. I put a description of this below.</p>
+
+<h1>Networking</h1>
+<p>I went through this in my other setup post <a href="../../..{% post_url 2014-10-10-Raspberry-Pi-Setup %}">here</a>.</p>
+
+<h1>Change Username</h1>
+<p>I wanted to change the default username and password from pi and raspberry to my own. Here's the code</p>
+
+{% highlight bash %}
+{% raw %}
+sudo passwd   # make a root password
+
+# log out and log in as root
+
+usermod -l newName oldName
+usermod -m -d /home/newName
+passwd newName
+{% endraw %}
+{% endhighlight %}
+
+<h1>Change Keyboard and Time</h1>
+<p>Next was changing the default time, UTC, to EST where I live. And to change the keyboard to US not a UK layout. This is done by typing <code>sudo raspi-config</code> and going to the international options and just going through the menu.</p>
+
+<h1>Config</h1>
+<p>Finally I needed to config zsh, my normally installed programs and other dotfiles. For this I used my config repo which I talk about <a href="../../..{% post_url 2015-03-21-config %}">here</a>.</p>
+
+
