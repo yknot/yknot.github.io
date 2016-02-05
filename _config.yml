@@ -2,7 +2,7 @@
 markdown: redcarpet
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
-highlighter: pygments
+highlighter: rouge
 
 # Site settings
 title: "Andrew J Yale"
@@ -23,6 +23,9 @@ paginate:	5
 
 url: "http://yknot.github.com" # the base hostname & protocol for your site
 #baseurl: ""
+
+# fix template issue
+exclude: [vendor]
 
 # social icons and sharing options
 social:

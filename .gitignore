@@ -4,3 +4,5 @@ commands.txt
 *~
 *.lock
 *#
+.bundle/
+vendor/
