@@ -13,10 +13,15 @@ tags:
   On January 1st of this year I backed the pine64 project on Kickstarter. The short blurb about the pine64 from their page is:
 </p>
   <blockquote>
+    <p>
     PINE A64 is the world's first 64-bit expandable Quad Core 1.2Ghz supercomputer, tablet, media center, and more... starting at just $15.
+    </p>
   </blockquote>
+
+<img src="../../../assets/article_images/2016/09/02/pine64_1.jpg" alt="pine64" width="750">
+
 <p>
-  I already have a Raspberry Pi B+ from September 2014, which has 256 MB of RAM. I wanted to replace it with one of the new ones with 1 GB of RAM, but I don't really need 2 Raspberry Pi's floating around. This gave me the perfect oppurtunity to get another small computer for even cheaper with the full 1 GB of RAM.
+  I already have a Raspberry Pi B+ from September 2014, which has 256 MB of RAM. I wanted to replace it with one of the new ones with 1 GB of RAM, but I don't really need 2 Raspberry Pi's floating around. This gave me the perfect opportunity to get another small computer for even cheaper with the full 1 GB of RAM.
 </p>
 <h1>First Steps</h1>
 <p>
@@ -24,7 +29,7 @@ tags:
 </p>
 
 <p>
-  My day to day computer is a MacBook Pro so if the next steps will be specific to OS X, but are easily adapatble to Linux. Once you have downloaded the image you need to find out what the microSD card is listed as on your system. To do this I ran <code>diskutil list</code>. This gives you a list of all of the drives on your computer. It came up as <code>/dev/disk2</code> it should appear as /dev/diskN with N being a number. You should be able to tell which drive it is by the size listed in the output of that command. After that you need to unmount that drive. This is because we want to format that image to the drive which can't happen when the drive is mounted for use. You can unmount with the command <code>diskutil unmountDisk /dev/disk2</code> where 2 is the number of your disk. Finally we can format the card. Run this command with the image file name after if= and your appropriate disk number for of=/dev/disk2.
+  My day to day computer is a MacBook Pro so if the next steps will be specific to OS X, but are easily adaptable to Linux. Once you have downloaded the image you need to find out what the microSD card is listed as on your system. To do this I ran <code>diskutil list</code>. This gives you a list of all of the drives on your computer. It came up as <code>/dev/disk2</code> it should appear as /dev/diskN with N being a number. You should be able to tell which drive it is by the size listed in the output of that command. After that you need to unmount that drive. This is because we want to format that image to the drive which can't happen when the drive is mounted for use. You can unmount with the command <code>diskutil unmountDisk /dev/disk2</code> where 2 is the number of your disk. Finally we can format the card. Run this command with the image file name after if= and your appropriate disk number for of=/dev/disk2.
 </p>
 {% highlight bash %}
 {% raw %}
@@ -41,7 +46,9 @@ sudo dd bs=1m if=pine64-image-debianmate-310101bsp.img of=/dev/disk2
   When I first started up the pine64 I had it plugged into my TV with a keyboard but no mouse. I relied on the Ctrl+Alt+T that you can do in Ubuntu to open a terminal, turns out that isn't standard in debian. Oh well, after button mashing for a bit I figured out that Alt+F1 opens the "Start" Menu, for lack of a better term. From there I could open the Gnome Terminal. I also noticed I could use GParted rather than just editing the fstab to mount my data portion of the SD card. Unfortunately this just led me down the rabbit hole of not just resizing the partition to start with. All because I missed the line.
 </p>
 <blockquote>
+  <p>
   Execute resize_rootfs.sh script to resize the root partition in order to fully utilize the SD Card
+  </p>
 </blockquote>
 <p>
   I instead ran through fdisk and all the interactive steps of that. I won't go through that here because it was pointless when you could have just run resize_rootfs.sh.
@@ -63,10 +70,10 @@ iface eth0 inet static  # was dhcp
   As with some other linux boxes I have setup, I couldn't get <code>apt-get update</code> to work because of DNS issues. All you have to do to fix that is add <code>nameserver 8.8.8.8</code> (one of google's DNSs) to your /etc/resolv.conf.
 </p>
 <p>
-  With that set up I now have a proper headless box. There were a couple other aesthetic changes I wanted to make on the server though. I wanted to change my username as well as the hostname of the box. To change the username you actually need to be logged out of the user that you want to change (at least if you want the home directory to change and everything to work nicely). To do this I could have ssh-ed as root, but didn't really want to open that route up, or made a new user that I could log into just to make this change. I elected for the latter, making a temp user just for this reason. Once logged in as the temp user (that has sudo privelages) I ran <code>sudo usermod -l yknot debian</code> and to change the home directory <code>sudo usermod -m -d /home/yknot yknot</code>. The last step to get the user all squared away was to change my password. That can be changed by just running <code>passwd</code> as the user for which you want to change the password.
+  With that set up I now have a proper headless box. There were a couple other aesthetic changes I wanted to make on the server though. I wanted to change my username as well as the hostname of the box. To change the username you actually need to be logged out of the user that you want to change (at least if you want the home directory to change and everything to work nicely). To do this I could have ssh-ed as root, but didn't really want to open that route up, or made a new user that I could log into just to make this change. I elected for the latter, making a temp user just for this reason. Once logged in as the temp user (that has sudo privileges) I ran <code>sudo usermod -l yknot debian</code> and to change the home directory <code>sudo usermod -m -d /home/yknot yknot</code>. The last step to get the user all squared away was to change my password. That can be changed by just running <code>passwd</code> as the user for which you want to change the password.
 </p>
 <p>
-  Changing the hostname is a much easier task. You just need to edit two files and run a script to make the changes permenant. To edit the files just run <code>nano /etc/hostname</code> and <code>nano /etc/hosts</code>. In those files you just need to replace your old hostname with your desired hostname. Then to have the changes take effect run <code>/etc/init.d/hostname.sh start</code>. These commands will likely have to be run with sudo to work. To check that this worked run <code>hostname</code> as any user to check that the hostname.
+  Changing the hostname is a much easier task. You just need to edit two files and run a script to make the changes permanent. To edit the files just run <code>nano /etc/hostname</code> and <code>nano /etc/hosts</code>. In those files you just need to replace your old hostname with your desired hostname. Then to have the changes take effect run <code>/etc/init.d/hostname.sh start</code>. These commands will likely have to be run with sudo to work. To check that this worked run <code>hostname</code> as any user to check that the hostname.
 </p>
 
 <p>
@@ -75,6 +82,9 @@ iface eth0 inet static  # was dhcp
 
 <h1>Time Machine</h1>
 <h3>Or how to google until it works</h3>
+
+<img src="../../../assets/article_images/2016/09/02/setup.jpg" alt="My setup" width="750">
+
 <p>
   Just like the Raspberry Pi, the pine64 can't drive enough power to the usb ports to power an external hard drive. At least the hard drives that don't have their own power supply. To fix this I got a <a href="https://www.amazon.com/dp/B00DQFGH80">usb hub</a> from Amazon that is powered. This gave me more ports and allows me to power external hard drives. After plugging in the hub and the hard drive it still wasn't showing up when I ran <code>fdisk -l</code>. To make it show up I had to restart the pine64. After being able to mount it I wanted to make it mount on start up.
 </p>
@@ -85,9 +95,9 @@ iface eth0 inet static  # was dhcp
 {% highlight bash %}
 {% raw %}
 # UNCONFIGURED FSTAB FOR BASE SYSTEM
-# <file system> <dir> <type> <options>   <dump> <pass>
-/dev/mmcblk0p1 /boot vfat defaults   0  2
-/dev/mmcblk0p2 / ext4 defaults,noatime  0  1
+# <file system> <dir> <type> <options>      <dump> <pass>
+/dev/mmcblk0p1  /boot   vfat  defaults           0      2
+/dev/mmcblk0p2  /       ext4  defaults,noatime   0      1
 /dev/disk/by-id/usb-WD_My_Passport_0740_5758423145413145584E4B36-0:0-part2 /mnt/AJY exfat nosuid,nodev,nofail,x-gvfs-show 0 0
 {% endraw %}
 {% endhighlight %}
@@ -188,7 +198,7 @@ sudo dpkg -i plexmediaserver-installer_0.9.16.6.1993-5089475-1~jessie_armhf.deb
 </p>
 
 
-
+<img src="../../../assets/article_images/2016/09/02/pine64_2.jpg" alt="pine64" width="750">
 
 <h1>Resources</h1>
 <h3>Disk Space</h3>
