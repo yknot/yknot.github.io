@@ -21,7 +21,7 @@ tags:
 <img src="../../../assets/article_images/2016/09/02/pine64_1.jpg" alt="pine64" width="750">
 
 <p>
-  I already have a Raspberry Pi B+ from September 2014, which has 256 MB of RAM. I wanted to replace it with one of the new ones with 1 GB of RAM, but I don't really need 2 Raspberry Pi's floating around. This gave me the perfect opportunity to get another small computer for even cheaper with the full 1 GB of RAM.
+  I already have a Raspberry Pi B+ from September 2014, which has 256 MB of RAM. I wanted to replace it with one of the new ones with 1 GB of RAM, but I don't really need two Raspberry Pi's floating around. This gave me the perfect opportunity to get another small computer, for even cheaper, with the full 1 GB of RAM.
 </p>
 <h1>First Steps</h1>
 <p>
@@ -29,7 +29,7 @@ tags:
 </p>
 
 <p>
-  My day to day computer is a MacBook Pro so if the next steps will be specific to OS X, but are easily adaptable to Linux. Once you have downloaded the image you need to find out what the microSD card is listed as on your system. To do this I ran <code>diskutil list</code>. This gives you a list of all of the drives on your computer. It came up as <code>/dev/disk2</code> it should appear as /dev/diskN with N being a number. You should be able to tell which drive it is by the size listed in the output of that command. After that you need to unmount that drive. This is because we want to format that image to the drive which can't happen when the drive is mounted for use. You can unmount with the command <code>diskutil unmountDisk /dev/disk2</code> where 2 is the number of your disk. Finally we can format the card. Run this command with the image file name after if= and your appropriate disk number for of=/dev/disk2.
+  My day to day computer is a MacBook Pro so the next steps will be specific to OS X, but are easily adaptable to Linux. Once you have downloaded the image you need to find out what the microSD card is listed as on your system. To do this I ran <code>diskutil list</code>. This gives you a list of all of the drives on your computer. It came up as <code>/dev/disk2</code> it should appear as /dev/diskN with N being a number. You should be able to tell which drive it is by the size listed in the output of that command. After that you need to unmount that drive. This is because we want to format that image to the drive, which can't happen when the drive is mounted for use. You can unmount with the command <code>diskutil unmountDisk /dev/disk2</code> where 2 is the number of your disk. Finally we can format the card. Run this command with the image file name after if= and your appropriate disk number for of=/dev/disk2.
 </p>
 {% highlight bash %}
 {% raw %}
@@ -43,7 +43,7 @@ sudo dd bs=1m if=pine64-image-debianmate-310101bsp.img of=/dev/disk2
 <h1>Debian</h1>
 <h3>Now for the fun part</h3>
 <p>
-  When I first started up the pine64 I had it plugged into my TV with a keyboard but no mouse. I relied on the Ctrl+Alt+T that you can do in Ubuntu to open a terminal, turns out that isn't standard in debian. Oh well, after button mashing for a bit I figured out that Alt+F1 opens the "Start" Menu, for lack of a better term. From there I could open the Gnome Terminal. I also noticed I could use GParted rather than just editing the fstab to mount my data portion of the SD card. Unfortunately this just led me down the rabbit hole of not just resizing the partition to start with. All because I missed the line.
+  When I first started up the pine64 I had it plugged into my TV with a keyboard, but no mouse. I relied on the Ctrl+Alt+T that you can do in Ubuntu to open a terminal, turns out that isn't standard in debian. Oh well, after button mashing for a bit I figured out that Alt+F1 opens the "Start Menu", for lack of a better term. From there I could open the Gnome Terminal. I also noticed I could use GParted rather than just editing the fstab to mount my data portion of the SD card. Unfortunately this just led me down the rabbit hole of not just resizing the partition to start with. All because I missed the line on the wiki that said:
 </p>
 <blockquote>
   <p>
@@ -83,7 +83,7 @@ iface eth0 inet static  # was dhcp
 <h1>Time Machine</h1>
 <h3>Or how to google until it works</h3>
 
-<img src="../../../assets/article_images/2016/09/02/setup.jpg" alt="My setup" width="750">
+<img src="../../../assets/article_images/2016/09/02/setup.jpg" alt="My setup. Raspberry Pi on the left and pine64 on the right. Hard drive is plugged into the usb hub in the back and sitting on the pine64." width="750">
 
 <p>
   Just like the Raspberry Pi, the pine64 can't drive enough power to the usb ports to power an external hard drive. At least the hard drives that don't have their own power supply. To fix this I got a <a href="https://www.amazon.com/dp/B00DQFGH80">usb hub</a> from Amazon that is powered. This gave me more ports and allows me to power external hard drives. After plugging in the hub and the hard drive it still wasn't showing up when I ran <code>fdisk -l</code>. To make it show up I had to restart the pine64. After being able to mount it I wanted to make it mount on start up.
