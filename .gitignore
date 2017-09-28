@@ -1,8 +1,6 @@
 _site/
 .sass-cache/
 commands.txt
-*~
 *.lock
-*#
 .bundle/
 vendor/
