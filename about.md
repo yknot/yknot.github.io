@@ -18,14 +18,14 @@ Feel free to follow me elsewhere [Twitter](https://twitter.com/andrewjyale), [In
 Projects
 ====
 
-###Data Analysis
+### Data Analysis
 * [rocStats](https://github.com/yknot/rocStats) - analysis of ROC's gear usage for a year.
 * [googleLocationHistory](https://github.com/yknot/googleLocationHistory) - An analysis of my 2014 google location history.
 * [netflix](https://github.com/yknot/netflix) - A stab at the Netflix challenge, done for a class project
 * [rain data analysis](https://github.com/yknot/rain_data_analysis) - Used for RPI's Engineers Without Borders club to analyze 10 years of rain data
 * [SkiDataViz](https://github.com/yknot/SkiDataViz) - A look at ski areas and their different attributes
 
-###Scripts and Tools
+### Scripts and Tools
 * [makevid](https://github.com/yknot/makevid) - A summer research position project at RPI. Stitching multiple camera feeds together into one video
 * [scripts](https://github.com/yknot/scripts) - repository of quick scripts I use frequently or once
 * [config](https://github.com/yknot/config) - repository of my config files
@@ -33,11 +33,11 @@ Projects
 * [televisionTeleporter](https://github.com/yknot/televisionTeleporter) - A continuously running media managment script
 
 
-###Servers and Services
+### Servers and Services
 * [flaskServer](https://github.com/yknot/flaskServer) - A flask server designed for general data storage for a household.
 * [SnowUpdates](https://github.com/yknot/SnowUpdates) - A service to text users about snow conditions
 
-###Websites
+### Websites
 * [yknot.github.io](https://github.com/yknot/yknot.github.io) - This website
 * [peoples2048](https://github.com/yknot/peoples2048) - Putting my friends pictures on a fork of 2048
 
