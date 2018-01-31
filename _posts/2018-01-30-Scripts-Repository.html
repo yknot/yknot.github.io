@@ -1,0 +1,31 @@
+---
+title: Scripts Repository
+layout: post
+tags:
+      - scripts
+      - github
+      - programming
+---
+<p>Programmers come in all different types, but there’s at least one thing they all have in common. They are impatient. When you can program the computer do something rather than doing it by hand you spend the time programming the computer to do it. Usually this also means spending more time writing the optimization than the actual task would take. You can tell I don’t consult the <a href="https://xkcd.com/1205/">xkcd chart</a> about this frequently enough. For me it all comes down to an excuse to do what I love which is writing code and learning fun new tasks I can accomplish with code.</p>
+
+<p>As part of this perpetual hobby of making single function scripts, I have started to keep them in one place for ease of use. This folder is on github at <a href="https://github.com/yknot/scripts">https://github.com/yknot/scripts</a> and also lives in my home directory in a folder called <code>bin</code>. This is then added to my path so I can always run any of these commands from anywhere.</p>
+
+<p>I have a description of all of these in the readme for the github repository, but I figured I would embellish on a few of them here.</p>
+
+<h1><code>html2pdf</code></h1>
+
+<p>This came from the desire to download several webpages in quick succession. I believe they were notes for a class I was taking. Rather than having a bunch of html files that I would have to open in the browser I wanted them in pdf form so that I could read them easily from my computer or iPad. Google chrome has a headless mode option you can run from your Mac and I used that to open the page and then print the page to pdf.</p>
+
+<h1><code>matdiff</code>, <code>matvars</code>, <code>npyvars</code></h1>
+
+<p>I still use these pretty frequently, although less and less the MATLAB versions. The diff script just takes two <code>.mat</code> files and opens them and checks the variables against one another to see if they are the same. It does require that the variable names are the same in both files, but is still pretty convenient. The <code>matvars</code> and <code>npyvars</code> commands just print out the variables in the <code>.mat</code> and <code>.npy</code> binary files and their shapes. This is very helpful when I quickly want to know what’s in a binary file and don’t want to start up python and type the same 5 lines that I always have to type. As with most of these scripts, with a little bit more polish these three could be one script, but alas I have yet to get around to that.</p>
+
+<h1><code>pronoun_checker</code></h1>
+
+<p>This script probably has the highest procrastination amount to actual value ratio of all of the scripts. I was finding when I write technical papers I still fall in the habit of using “you”, “we”, and “our” too frequently. This script just runs continuously and yells at you when you make that mistake. I like to keep it running in the corner when I’m writing so that I catch my mistakes sooner rather than later. Not my most inspired idea.</p>
+
+<p>Overall these are pretty single purpose and aren’t used all that frequently, <sup><a id="ffn1" href="#fn1" class="footnote">1</a></sup> but it’s things like this that make day to day tasks more fun for me. Lots of other developers and programmers have made repositories like this on their github pages and I would recommend just searching for them. From there you can get ideas of scripts you want to write or even just tweak ones that you find out there.</p>
+
+<ol id="footnotes">
+	<li id="fn1">and to think these are only the ones that made the cut of being permanent <a href="#ffn1">&#x21A9;&#xFE0E;</a></li>
+</ol>
