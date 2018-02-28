@@ -1,0 +1,146 @@
+---
+title: Strava API and AWS
+layout: post
+tags:
+      - strava
+      - api
+      - aws
+      - lambda
+---
+
+<p>As part of the my <a href="{% post_url 2018-01-23-2018-Resolutions %}">resolutions</a> post from earlier this year I wanted to build a page to view my progress on achieving my resolutions. The blog post counter and book counter were easy to setup but also somewhat manual to change. For the mile counter I wanted something that would be automatic and always up to date. This seemed like it would be relatively straightforward because Strava has a well documented API and I could just call it from the site. Unfortunately because I’m hosting this site on github I can’t exactly put my API key in a local file on the site because all of the files are public on Github. Now this is really a problem I have made for myself by not just hosting the site elsewhere, but it made for an excuse to learn AWS Lambdas, but I’m getting ahead of myself.</p>
+
+<h2>Strava API</h2>
+
+<p>Before I get to any of the AWS intricacies the first step is to pull data from the API and calculate my miles this year. On Strava you can <a href="https://developers.strava.com/">create an API Application</a>, set the permissions to access your account, and get your API key.</p>
+
+<p>Once you have the key you can start sending requests to the API to get your data. My preferred language is Python and I found a module called <a href="https://github.com/hozn/stravalib"><code>stravalib</code></a> which made it nice and easy to query the API. Using the <code>get_activites</code> method I was able to specify all of the activities after the first of the year and get them returned in a list. This is done with the code below.</p>
+
+{% highlight python %}
+from stravalib.client import Client
+from stravalib import unithelper
+
+client = Client()
+client.access_token = 'STRAVA_API_KEY'
+runs_raw = list(client.get_activities(after='2018-01-01T00:00:00Z'))
+runs = {r.start_date: unithelper.miles(r.distance).num for r in runs_raw}
+
+total_miles = sum(runs.values())
+{% endhighlight %}
+<p>While this accomplishes the goal of how many miles were run so far this year it doesn’t really tell me where I stand month to month or whether I’m on pace or not. To do this I just calculated where I am compared to where I should be percentage wise throughout the year as well as binned the runs into months to see how each month compares. </p>
+
+{% highlight python %}
+import datetime
+
+# where I stand compared to pace
+rate = (500 / 365)
+today = datetime.datetime.today().timetuple().tm_yday
+pace = rate * today
+position = total_miles - pace
+
+# miles by month
+monthly = {}
+month_names = dict(enumerate(calendar.month_name))
+for m in range(1, datetime.datetime.today().month + 1):
+   monthly[month_names[m]] = 0
+   for d, miles in runs.items():
+       if d.month == m:
+           monthly[month_names[m]] += miles
+{% endhighlight %}
+<p>For now these are all the statistics I am going to look at, but as the year goes on maybe looking at stats for half the year would be interesting. </p>
+
+<p>Now that we have this nice Python script to pull the data we hit our first problem. Github pages are static and can’t call scripts to run. The arguably better solution<sup><a id="ffn1" href="#fn1" class="footnote">1</a></sup> is to run my own site on Linode or Heroku, giving me the opportunity to write and run whatever I want. For now though I’m still on Github pages and needed an alternative.</p>
+
+<h2>AWS Lambda</h2>
+
+<p>What I decided to do was create a AWS (Amazon Web Services) Lambda function that would pull this data down for me. The first 1 million Lambda calls a month are free so I think that I won’t be paying for anything anytime soon. I also had an interest in trying to create a Lambda function because that’s what they use for custom Echo skills.</p>
+
+<p>The process of setting a Lambda function up was very straightforward. They have templates for creating python ones directly from their web interface which is great for testing it out. While this is nice, I quickly figured out that this wasn’t ideal for me since I wanted to use third-party libraries. </p>
+
+<p>Therefore here are the steps that I took to create the Lambda function.</p>
+
+<ol>
+    <li>Install the AWS CLI on your system and set it up with your <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html">user account</a>.</li>
+{% highlight python %}
+pip install awscli
+aws configure
+{% endhighlight %}
+    <li>Create a Lambda function online (or through the CLI).</li>
+    <li>Create a local virtual environment for your app and install any dependencies.</li>
+    <li>Zip up your code and virtual environment packages and upload to AWS</li>
+{% highlight bash %}
+zip -r9 lambda.zip code.py $VIRTUAL_ENV/lib/python3.6/site-packages
+aws lambda update-function-code --function-name my_python_lambda --zipf-file fileb://lambda.zip
+{% endhighlight %}
+</ol>
+<p>This is definitely the short version of the setup and there might be some issues along the way, but there are many guides in the AWS documentation that can help. The two things that caught me up are the fact that you need a handler function in a specific format in your Python script that <a href="https://docs.aws.amazon.com/lambda/latest/dg/python-programming-model-handler-types.html">AWS can call</a>. Not complicated but a nuance. The bigger issue I faced was the idea of AWS roles. For the scale of my applications it seems overly complicated, but for an organization using AWS I understand why it is there. I had to <a href="https://docs.aws.amazon.com/lambda/latest/dg/with-on-demand-https-example-create-iam-role.html">create a role</a> that can execute AWS Lambda functions.</p>
+
+<p>After all of this work we can finally test it! You can again do this online through the web interface and see what your code outputs. </p>
+
+<h2>AWS API Gateway</h2>
+
+<p>The next issue is that you can’t just call a Lambda function outside of using the web client or an authorized command line executable. That means it won’t work on my website. To do this I needed to use another AWS service, the API Gateway. This one actually does cost money, but at the scale that I probably won’t spend more than 10 cents a month, and that’s if I were to suddenly get a lot more traffic. </p>
+
+<p>By creating the API Gateway and attaching it to the Lambda you can visit a url and that will invoke the Lambda function, returning the result of the call. Again the API Gateway service has many features that I didn’t end up using and merely just set it up to call the Lambda function I created when the root url was visited. </p>
+
+<p>This did mean modifying my Lambda function to return valid JSON so that it could be served up as the result of the API call. The final return statement of my function looked like below, where <code>output</code> is a dictionary of the stats that I calculated. The headers part is a little bit of a preview to how I was able to get it on the site.</p>
+
+{% highlight python %}
+return {"statusCode": 200,
+            "headers": {"Content-Type": "application/json",
+                        "Access-Control-Allow-Origin":
+                        ["http://localhost:4000", "https://yknot.github.io"]},
+            "body": json.dumps(output)}
+{% endhighlight %}
+<p>Although this required a little bit of iteration it was still pretty straightforward to link up the two services.</p>
+
+<h2>Javascript</h2>
+
+<p>Finally, the last step to getting the stats to display on my site. This seemed like it should be the easiest thing to do. Although I am no expert at javascript it seemed straightforward enough to call the API, parse the response, and display it as part of the <a href="/goal-tracker/">Goal Tracker</a> page I set up. Turns out it wasn’t that easy because of <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">Cross-Origin Resource Sharing</a> or CORS. This is where my knowledge of how javascript and other web technologies falls a little flat. The article I linked explained this very well though and it comes down to a security issue which makes a lot of sense. Now for me I was able to fix this by adding those headers that were shown above in my Lambda function. This made it so that I could call the API without it failing on me, although that was definitely not obvious when it first started throwing errors. </p>
+
+<p>To get the stats to display I simply used JQuery and <code>XMLHttpRequest()</code> as shown below.</p>
+
+{% highlight javascript %}
+<script>
+  function round (n) {
+    return Math.ceil(n * 10) / 10;
+  }
+  $(document).ready(function() {
+    let request = new XMLHttpRequest();
+    let url = 'http://API_URL';
+
+    function reqListener () {
+      if (this.readyState === 4 && this.status === 200) {
+        let response = JSON.parse(this.responseText);
+        $(".running").append(round(response["total_miles"]) + "   (");
+        if (response["position"] > 0) {
+          $(".running").append("+");
+        }
+        $(".running").append(round(response["position"]) + ")");
+        $(".running").append("<br/>");
+        $(".running").append("Monthly Breakdown:<br/>");
+
+        for (var key in response["monthly"]) {
+          $(".running").append(key + ": " + round(response["monthly"][key]) + "<br/>");
+        }
+      }
+    }
+
+    request.addEventListener("load", reqListener);
+    request.open("GET", url, true);
+    request.send();
+  });
+
+</script>
+{% endhighlight %}
+<h2>Improvements and Next Steps</h2>
+
+<p>In it’s current state it works, but it is still a little hacked together. The website javascript calls an AWS API Gateway, which calls an AWS Lambda, which then roundtrips back to the website. Therefore it is predictably slow and introduces a lot more complexity than is really necessary. Even doing something such as caching could help relieve the issue, but caching and static sites don’t really go hand in hand. Maybe at this point that’s the big clue to switch to self hosting, but that is probably for another post. </p>
+
+<p>Now that I have proved that I can get my data from Strava, I think the next step is to make that data look good. Right now it’s just simply putting some of those raw numbers up and doesn’t give the viewer anything to really look at. I’ve been looking into things such as D3js and might try to use this data to create some charts.</p>
+
+<p>Finally, you might also notice that the gym days section on that page is a little bare. I actually tried to do this process with the Fitbit API before Strava and found it much worse to work with. To get the gym days and not resort to a manual tracker I will need to figure that out though, so that is probably the most important next step.</p>
+
+<ol id="footnotes">
+    <li id="fn1">And solution I will probably eventually use <a href="#ffn1">&#x21A9;&#xFE0E;</a></li>
+</ol>

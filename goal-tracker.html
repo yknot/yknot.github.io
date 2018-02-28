@@ -1,0 +1,93 @@
+---
+layout: page
+title: Goal Tracker 2018
+permalink: /goal-tracker/
+---
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    function round (n) {
+    return Math.ceil(n * 10) / 10;
+    }
+    
+    
+    
+    $(document).ready(function() {
+    let request = new XMLHttpRequest();
+    let url = `https://p5v5525j33.execute-api.us-east-1.amazonaws.com/prod`;
+    
+    function reqListener () {
+    if (this.readyState === 4 && this.status === 200) {
+    let response = JSON.parse(this.responseText);
+    $(".running").append(round(response["total_miles"]) + "   (");
+    if (response["position"] > 0) {
+    $(".running").append("+");
+    }
+    $(".running").append(round(response["position"]) + ")");
+    $(".running").append("<br/>");
+    $(".running").append("Monthly Breakdown:<br/>");
+    
+    for (var key in response["monthly"]) {
+    $(".running").append(key + ": " + round(response["monthly"][key]) + "<br/>");
+    }
+    }
+    }
+    
+    request.addEventListener("load", reqListener);
+    request.open("GET", url, true);
+    request.send();
+    });
+    
+  </script>
+  
+</head>
+<p>
+This page is tracking my goals for 2018 as outlined in my resolutions <a href="{% post_url 2018-01-23-2018-Resolutions %}">blog post</a>.
+</p>
+<h1><a>Running (500 Miles)</a></h1>
+<p class="running">
+  Miles so far this year (position from pace): 
+</p>
+
+<h1><a>Lifting (100 Days)</a></h1>
+
+<h1><a>Blog Posts (2 Times a Month)</a></h1>
+{% for post in site.posts %}
+
+{% assign thisdate = post.date | date: "%B" %}
+{% assign prevdate = post.previous.date | date: "%B" %}
+{% assign thisyear = post.date | date: "%Y" %}
+
+{% assign counter = counter | plus: 1 %}
+{% if thisyear != "2018" %}
+{% break %}
+{% endif %}
+
+  {% if thisdate != prevdate %}
+<h3 class="archive">{{ thisdate }}: {{counter }}</h3>
+
+ {% assign counter = 0 %}
+  {% endif %}
+{% endfor %}
+
+<h1><a>Reading (10 Books)</a></h1>
+
+<h2>Books</h2>
+<p>
+  Wanted to make it clear books read versus listened to. Ideally I still read 10 books without counting audiobooks, but we'll see.
+</p>
+
+<h3>In Progress</h3>
+<p>
+<a href="https://www.amazon.com/How-Not-Be-Wrong-Mathematical/dp/0143127535">How Not to Be Wrong: The Power of Mathematical Thinking</a> by Jordan Ellenberg
+</p>
+<h2>AudioBooks</h2>
+<p>
+  <a href="https://www.amazon.com/Wrinkle-Time-Quintet/dp/0312367546">A Wrinkle in Time</a> by Madeleine L'Engle
+  <br>
+This was a good book, obviously meant for a younger crowd, but I wanted to read it before the movie. I also think that by reading this I will want to read the rest of the series.
+
+</p>
+
+
+
