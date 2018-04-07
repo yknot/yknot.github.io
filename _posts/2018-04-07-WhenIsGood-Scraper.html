@@ -1,0 +1,27 @@
+---
+title: WhenIsGood Scraper
+layout: post
+tags:
+      - python 3
+      - WhenIsGood
+---
+<p>I was recently running a WhenIsGood to help my frisbee team find times to lift together. Normally with one of these polls you just select one time that works for everyone. This was to be able to provide a weekly calendar to everyone so they could find who was also free when they were. Therefore what I wanted to do was send out the full results. Unfortunately without paying for spreadsheet export you can’t do this in WhenIsGood. This bothered me because all of the data is there on the results page so why can’t I just use it. Well turns out you can pretty easily.</p>
+
+<p>After inspecting the page there is a big script block at the bottom that holds all of the availability data. Using that knowledge I just grabbed the site with <a href="http://docs.python-requests.org/en/master/">requests</a> and was able to just parse it with <a href="https://www.crummy.com/software/BeautifulSoup/">beautiful soup</a> and grab that section I needed. From there it was just a matter of pulling the javascript style formatted data to python objects, I used a dictionary with the key being <code>(weekday, hour)</code> and the value being a list of names of people. </p>
+
+<p>Once I had the data parsed it just came down to printing it out. There didn’t seem to be an easy way to create a GUI or image result so I just went for printing the results in ASCII style output. I printed seven columns, one for each day. On the left side I had the hours going down from the first hour in any of the seven days someone was available to the last one. In any given column for a given hour I just had one name listed per line. I made each hour “row” as many lines as the maximum number of names in that day.</p>
+
+<p>Overall this was pretty straightforward and just another fun, quick python hack.</p>
+
+<p><a href="https://github.com/yknot/WhenIsGoodScraper">Github Link</a></p>
+
+<p>Usage:</p>
+
+{% highlight bash %}
+python3 whenisgood_scraper.py <id> <result_code>
+{% endhighlight %}
+<p>This will output the results to the terminal. You can also just use a <code>&gt; results.txt</code> to redirect the output of the command to a file to view or send.</p>
+
+<p>This is pretty rudimentary and for this one purpose so I haven’t tested it for robustness. I think that it should work but corner cases that I have missed probably exist.</p>
+
+
