@@ -7,35 +7,51 @@ permalink: /goal-tracker/
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
     function round (n) {
-    return Math.ceil(n * 10) / 10;
+      return Math.ceil(n * 10) / 10;
     }
     
     
     
     $(document).ready(function() {
-    let request = new XMLHttpRequest();
-    let url = `https://p5v5525j33.execute-api.us-east-1.amazonaws.com/prod`;
+      let request = new XMLHttpRequest();
+      let url = `https://p5v5525j33.execute-api.us-east-1.amazonaws.com/prod`;
     
-    function reqListener () {
-    if (this.readyState === 4 && this.status === 200) {
-    let response = JSON.parse(this.responseText);
-    $(".running").append(round(response["total_miles"]) + "   (");
-    if (response["position"] > 0) {
-    $(".running").append("+");
-    }
-    $(".running").append(round(response["position"]) + ")");
-    $(".running").append("<br/>");
-    $(".running").append("Monthly Breakdown:<br/>");
+      function reqListener () {
+        if (this.readyState === 4 && this.status === 200) {
+          let response = JSON.parse(this.responseText);
+          $(".running").append(round(response["total_miles"]) + "   (");
+          if (response["position"] > 0) {
+            $(".running").append("+");
+          }
+          $(".running").append(round(response["position"]) + ")");
+          $(".running").append("<br/>");
+          $(".running").append("Monthly Breakdown:<br/>");
     
-    for (var key in response["monthly"]) {
-    $(".running").append(key + ": " + round(response["monthly"][key]) + "<br/>");
-    }
-    }
-    }
+          for (var key in response["monthly"]) {
+            $(".running").append(key + ": " + round(response["monthly"][key]) + "<br/>");
+          }
+        }
+      }
     
-    request.addEventListener("load", reqListener);
-    request.open("GET", url, true);
-    request.send();
+      request.addEventListener("load", reqListener);
+      request.open("GET", url, true);
+      request.send();
+
+      let request_lift = new XMLHttpRequest();
+      let url_lift = `https://dl.dropboxusercontent.com/s/t1659txtbkhjmpf/gym_days.json?dl=1`;
+    
+      function reqListenerLift () {
+        if (this.readyState === 4 && this.status === 200) {
+          let response = JSON.parse(this.responseText);
+          $(".lifting").append(response["gym_days"]);
+        }
+      }
+    
+      request_lift.addEventListener("load", reqListenerLift);
+      request_lift.open("GET", url_lift, true);
+      request_lift.send();
+
+      
     });
     
   </script>
@@ -50,24 +66,23 @@ This page is tracking my goals for 2018 as outlined in my resolutions <a href="{
 </p>
 
 <h1><a>Lifting (100 Days)</a></h1>
+<p class="lifting">
+  Lifting days so far this year: 
+</p>
 
-<h1><a>Blog Posts (2 Times a Month)</a></h1>
+<h1><a>Blog Posts (24 Times)</a></h1>
 {% for post in site.posts %}
 
-{% assign thisdate = post.date | date: "%B" %}
-{% assign prevdate = post.previous.date | date: "%B" %}
-{% assign thisyear = post.date | date: "%Y" %}
+  {% assign thisyear = post.date | date: "%Y" %}
 
-{% assign counter = counter | plus: 1 %}
+
 {% if thisyear != "2018" %}
-{% break %}
-{% endif %}
-
-  {% if thisdate != prevdate %}
-<h3 class="archive">{{ thisdate }}: {{counter }}</h3>
-
- {% assign counter = 0 %}
+    <p>Posts this year: {{counter }}<p>
+    {% break %}
   {% endif %}
+
+  {% assign counter = counter | plus: 1 %}
+
 {% endfor %}
 
 <h1><a>Reading (10 Books)</a></h1>
